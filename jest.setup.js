@@ -1,3 +1,5 @@
+import '@testing-library/jest-dom'
+
 beforeAll(() => {
   global.localStorage = {
     storage: {},

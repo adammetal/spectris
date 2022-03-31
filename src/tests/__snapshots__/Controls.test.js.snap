@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Controls test snapshot 1`] = `
+<div>
+  <div
+    class="flex flex-col justify-center items-center gap-2 p-2"
+  >
+    <div
+      class="flex flex-row justify-center items-center gap-2 p-2"
+    >
+      <input
+        class="outline-none p-2 border-2 border-cyan-600 w-80"
+        id="source"
+        placeholder="Game url"
+        value=""
+      />
+      <button
+        class="border-2 w-24 p-2 border-cyan-600 opacity-50"
+        disabled=""
+      >
+        Add
+      </button>
+      <button
+        class="border-2 w-24 p-2 border-cyan-600 opacity-50"
+        disabled=""
+      >
+        Spectate
+      </button>
+      <button
+        class="border-2 w-24 p-2 border-cyan-600 opacity-50"
+        disabled=""
+      >
+        Remove
+      </button>
+    </div>
+    <div
+      class="flex flex-row justify-center items-center gap-2 p-2"
+    >
+      <button
+        class="border-2 w-24 p-2 border-cyan-600 "
+      >
+        Clear All
+      </button>
+    </div>
+  </div>
+</div>
+`;
