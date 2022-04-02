@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, FlexCenter } from '../ui-kit';
+import { FlexCenter } from '../ui-kit';
 import Game from './Game';
 import { addMatch, removeMatchById, updateMatchById } from '../../redux/features/matches';
 
@@ -41,9 +41,6 @@ function Controls() {
         />
       ))}
       <Game onAdd={handleAdd} />
-      <FlexCenter row>
-        <Button>Clear All</Button>
-      </FlexCenter>
     </FlexCenter>
   );
 }

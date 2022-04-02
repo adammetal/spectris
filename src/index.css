@@ -7,6 +7,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .border-ridge {
+    border-style: ridge;
+  }
+
+  .border-6 {
+    border-width: 6px;
+  }
+}
+
 html,
 body,
 #root {
@@ -16,6 +26,7 @@ body,
 
 body {
   font-family: 'Open Sans', sans-serif;
+  background-color: hsl(240, 55%, 29%);
   margin: 0;
   padding: 0;
 }
