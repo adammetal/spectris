@@ -1,9 +1,9 @@
-import { configureStore } from "@reduxjs/toolkit";
-import matchesReducer from "./features/matches";
+import { configureStore } from '@reduxjs/toolkit';
+import matchesReducer from './features/matches';
 
 const storage = (key) => ({
   get: () => {
-    const raw = localStorage.getItem(key) ?? "{}";
+    const raw = localStorage.getItem(key) ?? '{}';
     return JSON.parse(raw);
   },
   set: (value) => {
@@ -12,9 +12,9 @@ const storage = (key) => ({
   },
 });
 
-const reduxState = storage("reduxState");
+const reduxState = storage('reduxState');
 
-export const createStore = () => {
+export default () => {
   const preloadedState = reduxState.get();
 
   const store = configureStore({

@@ -1,3 +1,3 @@
-import { createStore } from "./createStore";
+import createStore from './createStore';
 
-export const store = createStore();
+export default createStore();

@@ -1,12 +1,12 @@
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom';
 
 beforeAll(() => {
   global.localStorage = {
     storage: {},
-    getItem: function (key) {
+    getItem(key) {
       return this.storage[key] ?? null;
     },
-    setItem: function (key, value) {
+    setItem(key, value) {
       this.storage[key] = value;
     },
   };

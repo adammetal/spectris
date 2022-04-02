@@ -1,12 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { v4 as genId } from "uuid";
+/* eslint-disable no-param-reassign */
+import { createSlice } from '@reduxjs/toolkit';
+import { v4 as genId } from 'uuid';
 
 const initialState = {
   urls: [],
 };
 
 const matches = createSlice({
-  name: "matches",
+  name: 'matches',
   initialState,
   reducers: {
     addMatch: (state, action) => {
@@ -33,10 +34,12 @@ const { actions } = matches;
 
 export const { removeMatchById, updateMatchById } = actions;
 
-export const addMatch = ({ url }) => (dispatch) => {
-  const id = genId();
-  const payload = { url, id };
-  dispatch(actions.addMatch(payload));
-};
+export const addMatch =
+  ({ url }) =>
+  (dispatch) => {
+    const id = genId();
+    const payload = { url, id };
+    dispatch(actions.addMatch(payload));
+  };
 
 export default matches.reducer;

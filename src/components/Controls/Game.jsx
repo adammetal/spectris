@@ -1,11 +1,13 @@
-import { Button, FlexCenter, Input } from "../ui-kit";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { Button, FlexCenter, Input } from '../ui-kit';
 
-const Game = ({ id, url, onRemove, onAdd, onUpdate, onSpectate }) => {
+function Game({ id, url, onRemove, onAdd, onUpdate, onSpectate }) {
   const [value, setValue] = useState(url);
   const [changed, setChanged] = useState(false);
 
   useEffect(() => {
+    console.log({ value, url });
     if (value !== url) {
       setChanged(true);
     } else {
@@ -27,7 +29,7 @@ const Game = ({ id, url, onRemove, onAdd, onUpdate, onSpectate }) => {
 
   const handleAdd = () => {
     onAdd(value);
-    setValue("");
+    setValue('');
   };
 
   const handleUpdate = () => {
@@ -38,14 +40,9 @@ const Game = ({ id, url, onRemove, onAdd, onUpdate, onSpectate }) => {
 
   return (
     <FlexCenter row>
-      <Input
-        id="source"
-        placeholder="Game url"
-        value={value}
-        onChange={handleChange}
-      />
+      <Input id="source" placeholder="Game url" value={value} onChange={handleChange} />
       <Button disabled={!changed} onClick={hasId ? handleUpdate : handleAdd}>
-        {hasId ? "Update" : "Add"}
+        {hasId ? 'Update' : 'Add'}
       </Button>
       <Button onClick={handleSpectate} disabled={!hasId}>
         Spectate
@@ -55,15 +52,24 @@ const Game = ({ id, url, onRemove, onAdd, onUpdate, onSpectate }) => {
       </Button>
     </FlexCenter>
   );
-};
+}
 
 Game.defaultProps = {
   id: null,
-  url: "",
+  url: '',
   onRemove: () => {},
-  onAdd: () => {},
   onUpdate: () => {},
   onSpectate: () => {},
+  onAdd: () => {},
+};
+
+Game.propTypes = {
+  id: PropTypes.string,
+  url: PropTypes.string,
+  onRemove: PropTypes.func,
+  onUpdate: PropTypes.func,
+  onSpectate: PropTypes.func,
+  onAdd: PropTypes.func,
 };
 
 export default Game;

@@ -1,14 +1,19 @@
-import { render } from "react-dom";
-import { StrictMode } from "react";
-import App from "./App";
-import { store } from "./redux/store";
-import { Provider } from "react-redux";
+/* eslint-disable react/jsx-filename-extension */
 
-render(
+import { createRoot } from 'react-dom/client';
+import { StrictMode } from 'react';
+import { Provider } from 'react-redux';
+import App from './App';
+import store from './redux/store';
+
+const container = document.querySelector('#root');
+
+const root = createRoot(container);
+
+root.render(
   <StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
   </StrictMode>,
-  document.querySelector("#root")
 );

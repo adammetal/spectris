@@ -1,8 +1,9 @@
-const fs = require("fs/promises");
-const { contextBridge } = require("electron");
+const fs = require('fs/promises');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const { contextBridge } = require('electron');
 
-const spectateScriptFile = "./src/inject/spectate.js";
-const spectateCssFile = "./src/inject/spectate.css";
+const spectateScriptFile = './src/inject/spectate.js';
+const spectateCssFile = './src/inject/spectate.css';
 
 let loadSpectateScriptPromise;
 let loadSpectateCssPromise;
@@ -18,7 +19,7 @@ const loadSpectateScript = () => {
   if (!loadSpectateScriptPromise) {
     loadSpectateScriptPromise = fs
       .readFile(spectateScriptFile, {
-        encoding: "utf-8",
+        encoding: 'utf-8',
       })
       .then((code) => {
         spectateScriptContent = code;
@@ -37,7 +38,7 @@ const loadSpectateCss = () => {
   if (!loadSpectateCssPromise) {
     loadSpectateCssPromise = fs
       .readFile(spectateCssFile, {
-        encoding: "utf-8",
+        encoding: 'utf-8',
       })
       .then((code) => {
         spectateCssContent = code;
@@ -48,7 +49,7 @@ const loadSpectateCss = () => {
   return loadSpectateCssPromise;
 };
 
-contextBridge.exposeInMainWorld("spectate", {
+contextBridge.exposeInMainWorld('spectate', {
   loadSpectateScript,
   loadSpectateCss,
 });
