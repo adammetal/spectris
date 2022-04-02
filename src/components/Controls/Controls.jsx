@@ -24,7 +24,6 @@ function Controls() {
 
   const handleUpdate = useCallback(
     (id, url) => {
-      console.log({ id, url });
       dispatch(updateMatchById({ id, url }));
     },
     [dispatch, updateMatchById],

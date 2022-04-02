@@ -7,7 +7,6 @@ function Game({ id, url, onRemove, onAdd, onUpdate, onSpectate }) {
   const [changed, setChanged] = useState(false);
 
   useEffect(() => {
-    console.log({ value, url });
     if (value !== url) {
       setChanged(true);
     } else {
