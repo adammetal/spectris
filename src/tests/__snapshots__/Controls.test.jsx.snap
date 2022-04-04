@@ -15,21 +15,21 @@ exports[`Controls test snapshot 1`] = `
         value=""
       />
       <button
-        class="border-6 border-ridge w-24 p-2 underline bg-indigo-100 border-gray-400 opacity-50"
+        class=" border-6 border-ridge w-24 p-2 underline bg-indigo-100 border-gray-400 opacity-50"
         disabled=""
         type="button"
       >
         Add
       </button>
       <button
-        class="border-6 border-ridge w-24 p-2 underline bg-indigo-100 border-gray-400 opacity-50"
+        class=" border-6 border-ridge w-24 p-2 underline bg-indigo-100 border-gray-400 opacity-50"
         disabled=""
         type="button"
       >
         Spectate
       </button>
       <button
-        class="border-6 border-ridge w-24 p-2 underline bg-indigo-100 border-gray-400 opacity-50"
+        class=" border-6 border-ridge w-24 p-2 underline bg-indigo-100 border-gray-400 opacity-50"
         disabled=""
         type="button"
       >
