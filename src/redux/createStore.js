@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import matchesReducer from './features/matches';
+import injectorReducer from './features/injector';
 
 const storage = (key) => ({
   get: () => {
@@ -20,6 +21,7 @@ export default () => {
   const store = configureStore({
     reducer: {
       matches: matchesReducer,
+      injector: injectorReducer,
     },
     preloadedState,
   });
