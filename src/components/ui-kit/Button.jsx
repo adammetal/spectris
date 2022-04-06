@@ -5,8 +5,8 @@ function Button({ children, className, ...rest }) {
   return (
     <button
       type="button"
-      className={`${className} border-6 border-ridge w-24 p-2 underline bg-indigo-100 border-gray-400 ${
-        rest.disabled ? 'opacity-50' : ''
+      className={`${className} text-lg border-2 rounded-md border-green-400 w-32 p-4 bg-black text-white ${
+        rest.disabled ? 'opacity-50' : 'hover:bg-blue-800'
       }`}
       {...rest}
     >

@@ -4,7 +4,7 @@ function Input(props) {
   return (
     <input
       {...props}
-      className="outline-none p-2 border-2 bg-gray-900 text-gray-50 border-green-400 w-80"
+      className="outline-none p-4 text-lg border-2 bg-gray-900 text-gray-50 border-green-400 w-80"
     />
   );
 }

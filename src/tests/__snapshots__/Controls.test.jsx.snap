@@ -9,27 +9,27 @@ exports[`Controls test snapshot 1`] = `
       class="flex flex-row justify-center items-center gap-2 p-2"
     >
       <input
-        class="outline-none p-2 border-2 bg-gray-900 text-gray-50 border-green-400 w-80"
+        class="outline-none p-4 text-lg border-2 bg-gray-900 text-gray-50 border-green-400 w-80"
         id="source"
         placeholder="Game url"
         value=""
       />
       <button
-        class=" border-6 border-ridge w-24 p-2 underline bg-indigo-100 border-gray-400 opacity-50"
+        class=" text-lg border-2 rounded-md border-green-400 w-32 p-4 bg-black text-white opacity-50"
         disabled=""
         type="button"
       >
         Add
       </button>
       <button
-        class=" border-6 border-ridge w-24 p-2 underline bg-indigo-100 border-gray-400 opacity-50"
+        class=" text-lg border-2 rounded-md border-green-400 w-32 p-4 bg-black text-white opacity-50"
         disabled=""
         type="button"
       >
         Spectate
       </button>
       <button
-        class=" border-6 border-ridge w-24 p-2 underline bg-indigo-100 border-gray-400 opacity-50"
+        class=" text-lg border-2 rounded-md border-green-400 w-32 p-4 bg-black text-white opacity-50"
         disabled=""
         type="button"
       >
