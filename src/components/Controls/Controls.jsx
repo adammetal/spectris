@@ -29,6 +29,10 @@ function Controls() {
     [dispatch, updateMatchById],
   );
 
+  const handleSpectate = useCallback((url) => {
+    window.controls.createWindow(url);
+  });
+
   return (
     <FlexCenter>
       {urls.map((game) => (
@@ -38,6 +42,7 @@ function Controls() {
           url={game.url}
           onRemove={handleRemove}
           onUpdate={handleUpdate}
+          onSpectate={handleSpectate}
         />
       ))}
       <Game onAdd={handleAdd} />

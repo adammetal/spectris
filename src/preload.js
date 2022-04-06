@@ -1,6 +1,6 @@
 const fs = require('fs/promises');
 // eslint-disable-next-line import/no-extraneous-dependencies
-const { contextBridge } = require('electron');
+const { contextBridge, ipcRenderer } = require('electron');
 
 const spectateScriptFile = './src/inject/spectate.js';
 const spectateCssFile = './src/inject/spectate.css';
@@ -52,4 +52,8 @@ const loadSpectateCss = () => {
 contextBridge.exposeInMainWorld('spectate', {
   loadSpectateScript,
   loadSpectateCss,
+});
+
+contextBridge.exposeInMainWorld('controls', {
+  createWindow: (spectate = '') => ipcRenderer.invoke('open-window', spectate),
 });

@@ -23,7 +23,7 @@ function Game({ id, url, onRemove, onAdd, onUpdate, onSpectate }) {
   };
 
   const handleSpectate = () => {
-    onSpectate(id);
+    onSpectate(url);
   };
 
   const handleAdd = () => {
