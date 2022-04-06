@@ -30,7 +30,7 @@ function Controls() {
   );
 
   const handleSpectate = useCallback((url) => {
-    window.controls.createWindow(url);
+    window.spectate.openSpectator(url);
   });
 
   return (

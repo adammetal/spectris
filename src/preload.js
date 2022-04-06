@@ -1,59 +1,41 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const fs = require('fs/promises');
-// eslint-disable-next-line import/no-extraneous-dependencies
 const { contextBridge, ipcRenderer } = require('electron');
 
 const spectateScriptFile = './src/inject/spectate.js';
 const spectateCssFile = './src/inject/spectate.css';
 
-let loadSpectateScriptPromise;
-let loadSpectateCssPromise;
+const loaderPromises = {};
 
-let spectateScriptContent;
-let spectateCssContent;
+const loadInjectableFile = (file) => {
+  loaderPromises[file] ||= {};
 
-const loadSpectateScript = () => {
-  if (spectateScriptContent) {
-    return Promise.resolve(spectateScriptContent);
+  const promise = loaderPromises[file];
+
+  if (promise.result) {
+    return Promise.resolve(promise.result);
   }
 
-  if (!loadSpectateScriptPromise) {
-    loadSpectateScriptPromise = fs
-      .readFile(spectateScriptFile, {
-        encoding: 'utf-8',
-      })
-      .then((code) => {
-        spectateScriptContent = code;
-        return code;
-      });
-  }
+  promise.loading ||= fs
+    .readFile(file, {
+      encoding: 'utf-8',
+    })
+    .then((code) => {
+      promise.result = code;
+      return code;
+    });
 
-  return loadSpectateScriptPromise;
+  return promise.loading;
 };
 
-const loadSpectateCss = () => {
-  if (spectateCssContent) {
-    return Promise.resolve(spectateCssContent);
-  }
+const loadSpectateScript = () => loadInjectableFile(spectateScriptFile);
 
-  if (!loadSpectateCssPromise) {
-    loadSpectateCssPromise = fs
-      .readFile(spectateCssFile, {
-        encoding: 'utf-8',
-      })
-      .then((code) => {
-        spectateCssContent = code;
-        return code;
-      });
-  }
+const loadSpectateCss = () => loadInjectableFile(spectateCssFile);
 
-  return loadSpectateCssPromise;
-};
+const openSpectator = (spectate = '') => ipcRenderer.invoke('open-window', spectate);
 
 contextBridge.exposeInMainWorld('spectate', {
   loadSpectateScript,
   loadSpectateCss,
-});
-
-contextBridge.exposeInMainWorld('controls', {
-  createWindow: (spectate = '') => ipcRenderer.invoke('open-window', spectate),
+  openSpectator,
 });
