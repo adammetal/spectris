@@ -1,8 +1,9 @@
 import { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { addMatch, removeMatchById, updateMatchById } from '../../redux/features/matches';
 import { FlexCenter } from '../ui-kit';
 import Game from './Game';
-import { addMatch, removeMatchById, updateMatchById } from '../../redux/features/matches';
+import Options from './Options';
 
 function Controls() {
   const dispatch = useDispatch();
@@ -12,26 +13,26 @@ function Controls() {
     (url) => {
       dispatch(addMatch({ url }));
     },
-    [dispatch, addMatch],
+    [dispatch],
   );
 
   const handleRemove = useCallback(
     (id) => {
       dispatch(removeMatchById({ id }));
     },
-    [dispatch, removeMatchById],
+    [dispatch],
   );
 
   const handleUpdate = useCallback(
     (id, url) => {
       dispatch(updateMatchById({ id, url }));
     },
-    [dispatch, updateMatchById],
+    [dispatch],
   );
 
   const handleSpectate = useCallback((url) => {
     window.spectate.openSpectator(url);
-  });
+  }, []);
 
   return (
     <FlexCenter>
@@ -46,6 +47,7 @@ function Controls() {
         />
       ))}
       <Game onAdd={handleAdd} />
+      <Options />
     </FlexCenter>
   );
 }
