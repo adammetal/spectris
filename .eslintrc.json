@@ -13,11 +13,14 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react"],
+  "plugins": ["react", "react-hooks"],
   "rules": {
     "object-curly-newline": "off",
     "implicit-arrow-linebreak": "off",
     "operator-linebreak": "off",
-    "indent": "off"
+    "function-paren-newline": "off",
+    "indent": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   }
 }
