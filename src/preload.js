@@ -2,9 +2,6 @@
 const fs = require('fs/promises');
 const { contextBridge, ipcRenderer } = require('electron');
 
-const spectateScriptFile = './src/inject/spectate.js';
-const spectateCssFile = './src/inject/spectate.css';
-
 const loaderPromises = {};
 
 const loadInjectableFile = (file) => {
@@ -28,14 +25,20 @@ const loadInjectableFile = (file) => {
   return promise.loading;
 };
 
-const loadSpectateScript = () => loadInjectableFile(spectateScriptFile);
+const loadSpectateScript = (file) => loadInjectableFile(file);
 
-const loadSpectateCss = () => loadInjectableFile(spectateCssFile);
+const loadSpectateCss = (file) => loadInjectableFile(file);
 
 const openSpectator = (spectate = '') => ipcRenderer.invoke('open-window', spectate);
+
+const selectInjectableCss = () => ipcRenderer.invoke('select-file', '.css');
+
+const selectInjectableJs = () => ipcRenderer.invoke('select-file', '.js');
 
 contextBridge.exposeInMainWorld('spectate', {
   loadSpectateScript,
   loadSpectateCss,
   openSpectator,
+  selectInjectableCss,
+  selectInjectableJs,
 });

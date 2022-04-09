@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-const { app, BrowserWindow, ipcMain, screen } = require('electron');
+const { app, BrowserWindow, ipcMain, screen, dialog } = require('electron');
 const path = require('path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -17,6 +17,7 @@ const createWindow = (spectate = '') => {
   const mainWindow = new BrowserWindow({
     width,
     height,
+    autoHideMenuBar: true,
     webPreferences: {
       webviewTag: true,
       preload: path.join(__dirname, 'preload.js'),
@@ -55,6 +56,10 @@ app.on('activate', () => {
 });
 
 ipcMain.handle('open-window', (event, spectate = '') => createWindow(spectate));
+
+ipcMain.handle('select-file', (event, type) =>
+  dialog.showOpenDialog({ properties: ['openFile'], filters: [type] }),
+);
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
