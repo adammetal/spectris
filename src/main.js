@@ -10,11 +10,11 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
-const createWindow = (spectate = '') => {
+const createWindow = (type = '') => {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
 
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  const newWindow = new BrowserWindow({
     width,
     height,
     autoHideMenuBar: true,
@@ -27,16 +27,28 @@ const createWindow = (spectate = '') => {
   // and load the index.html of the app.
 
   // eslint-disable-next-line no-undef
-  mainWindow.loadURL(`${MAIN_WINDOW_WEBPACK_ENTRY}?spectate=${spectate}`);
+  newWindow.loadURL(`${MAIN_WINDOW_WEBPACK_ENTRY}?screen=${type}`);
+  // newWindow.webContents.openDevTools();
 
+  return newWindow;
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+};
+
+let specWindow;
+
+const createMainWindow = () => createWindow('main');
+
+const createSpecWindow = () => createWindow('spectator');
+
+const createWindows = () => {
+  createMainWindow();
+  specWindow = createSpecWindow();
 };
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', () => createWindow());
+app.on('ready', () => createWindows());
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
@@ -51,11 +63,13 @@ app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
+    createWindows();
   }
 });
 
-ipcMain.handle('open-window', (event, spectate = '') => createWindow(spectate));
+ipcMain.handle('open-window', (event, spectate = '') =>
+  specWindow.webContents.send('set-url', spectate),
+);
 
 ipcMain.handle('select-file', (event, type) =>
   dialog.showOpenDialog({ properties: ['openFile'], filters: [type] }),

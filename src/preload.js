@@ -35,10 +35,17 @@ const selectInjectableCss = () => ipcRenderer.invoke('select-file', '.css');
 
 const selectInjectableJs = () => ipcRenderer.invoke('select-file', '.js');
 
+const onSetSpectatorUrl = (cb) => {
+  ipcRenderer.on('set-url', cb);
+
+  return () => ipcRenderer.off('set-url', cb);
+};
+
 contextBridge.exposeInMainWorld('spectate', {
   loadSpectateScript,
   loadSpectateCss,
   openSpectator,
   selectInjectableCss,
   selectInjectableJs,
+  onSetSpectatorUrl,
 });
