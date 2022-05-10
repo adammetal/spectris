@@ -45,7 +45,7 @@ function Spectator() {
   return (
     <>
       {!url && (
-        <div className="w-full h-full absolute top-0 left-0 z-10 bg-slate-400 opacity-50">
+        <div className="w-full h-full absolute top-0 left-0 z-10 bg-black text-white">
           <h1>Wait for url...</h1>
         </div>
       )}
