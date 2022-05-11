@@ -1,18 +1,29 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 
-function Spectator({ url }) {
+function Spectator() {
+  const [url, setUrl] = useState('');
   const { css, js } = useSelector((state) => state.injector);
-  const loading = useRef(true);
   const webv = useRef();
 
   useEffect(() => {
-    const { current } = webv;
+    const onSetUrl = (e, newUrl) => {
+      setUrl(newUrl);
+    };
 
-    if (!loading.current) {
-      return () => {};
+    const off = window.spectate.onSetSpectatorUrl(onSetUrl);
+
+    return off;
+  }, []);
+
+  useEffect(() => {
+    if (url.length) {
+      webv.current.loadURL(url);
     }
+  }, [url]);
+
+  useEffect(() => {
+    const { current } = webv;
 
     const onReady = async () => {
       const loadJsFiles = Promise.all(js.map((file) => window.spectate.loadSpectateScript(file)));
@@ -22,8 +33,6 @@ function Spectator({ url }) {
 
       cssCodes.map((code) => current.insertCSS(code));
       jsCodes.map((code) => current.executeJavaScript(code));
-
-      loading.current = false;
     };
 
     current?.addEventListener('dom-ready', onReady);
@@ -31,13 +40,22 @@ function Spectator({ url }) {
     return () => {
       current?.removeEventListener('dom-ready', onReady);
     };
-  }, [css, js, url, loading]);
+  }, [css, js]);
 
-  return <webview className="inline-flex w-full h-full" ref={webv} src={url} />;
+  return (
+    <>
+      {!url && (
+        <div className="w-full h-full absolute top-0 left-0 z-10 bg-black text-white">
+          <h1>Wait for url...</h1>
+        </div>
+      )}
+      <webview
+        className="inline-flex w-full h-full"
+        ref={webv}
+        src="https://jstris.jezevec10.com/"
+      />
+    </>
+  );
 }
-
-Spectator.propTypes = {
-  url: PropTypes.string.isRequired,
-};
 
 export default Spectator;

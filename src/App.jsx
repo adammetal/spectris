@@ -1,26 +1,17 @@
-import { useEffect, useState } from 'react';
 import Controls from './components/Controls';
 import Spectator from './components/Spectator';
 
 function App() {
-  const [spectate, setSpectate] = useState('');
+  const {
+    location: { search },
+  } = window;
 
-  useEffect(() => {
-    const {
-      location: { search },
-    } = window;
-
-    const url = new URLSearchParams(search);
-
-    const spec = url.get('spectate');
-    if (spec !== '') {
-      setSpectate(spec);
-    }
-  }, []);
-
+  const url = new URLSearchParams(search);
+  const screen = url.get('screen');
   let comp;
-  if (spectate !== '') {
-    comp = <Spectator url={spectate} />;
+
+  if (screen === 'spectator') {
+    comp = <Spectator url="" />;
   } else {
     comp = <Controls />;
   }

@@ -96,6 +96,12 @@ exports[`Controls test snapshot 1`] = `
         </div>
       </div>
     </div>
+    <button
+      class="w-60 text-lg border-2 rounded-md border-green-400 w-32 p-4 bg-black text-white hover:bg-blue-800"
+      type="button"
+    >
+      Open spectator
+    </button>
   </div>
 </div>
 `;
