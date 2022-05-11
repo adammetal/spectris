@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addMatch, removeMatchById, updateMatchById } from '../../redux/features/matches';
-import { FlexCenter } from '../ui-kit';
+import { Button, FlexCenter } from '../ui-kit';
 import Game from './Game';
 import Options from './Options';
 
@@ -31,7 +31,11 @@ function Controls() {
   );
 
   const handleSpectate = useCallback((url) => {
-    window.spectate.openSpectator(url);
+    window.spectate.setSpectatorUrl(url);
+  }, []);
+
+  const reopenSpectator = useCallback(() => {
+    window.spectate.openSpectatorWindow();
   }, []);
 
   return (
@@ -48,6 +52,9 @@ function Controls() {
       ))}
       <Game onAdd={handleAdd} />
       <Options />
+      <Button className="w-60" onClick={reopenSpectator}>
+        Open spectator
+      </Button>
     </FlexCenter>
   );
 }

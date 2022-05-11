@@ -34,15 +34,21 @@ const createWindow = (type = '') => {
   // Open the DevTools.
 };
 
-let specWindow;
+let specWindow = null;
 
 const createMainWindow = () => createWindow('main');
 
-const createSpecWindow = () => createWindow('spectator');
+const createSpecWindow = () => {
+  specWindow = createWindow('spectator');
+
+  specWindow.on('closed', () => {
+    specWindow = null;
+  });
+};
 
 const createWindows = () => {
   createMainWindow();
-  specWindow = createSpecWindow();
+  createSpecWindow();
 };
 
 // This method will be called when Electron has finished
@@ -67,9 +73,15 @@ app.on('activate', () => {
   }
 });
 
-ipcMain.handle('open-window', (event, spectate = '') =>
+ipcMain.handle('set-url', (event, spectate = '') =>
   specWindow.webContents.send('set-url', spectate),
 );
+
+ipcMain.handle('open-spectator-window', () => {
+  if (specWindow === null) {
+    createSpecWindow();
+  }
+});
 
 ipcMain.handle('select-file', (event, type) =>
   dialog.showOpenDialog({ properties: ['openFile'], filters: [type] }),

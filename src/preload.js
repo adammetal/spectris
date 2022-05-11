@@ -29,7 +29,9 @@ const loadSpectateScript = (file) => loadInjectableFile(file);
 
 const loadSpectateCss = (file) => loadInjectableFile(file);
 
-const openSpectator = (spectate = '') => ipcRenderer.invoke('open-window', spectate);
+const setSpectatorUrl = (spectate) => ipcRenderer.invoke('set-url', spectate);
+
+const openSpectatorWindow = () => ipcRenderer.invoke('open-spectator-window');
 
 const selectInjectableCss = () => ipcRenderer.invoke('select-file', '.css');
 
@@ -44,8 +46,9 @@ const onSetSpectatorUrl = (cb) => {
 contextBridge.exposeInMainWorld('spectate', {
   loadSpectateScript,
   loadSpectateCss,
-  openSpectator,
+  setSpectatorUrl,
   selectInjectableCss,
   selectInjectableJs,
   onSetSpectatorUrl,
+  openSpectatorWindow,
 });
