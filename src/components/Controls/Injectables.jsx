@@ -11,7 +11,7 @@ function Injectables({ files, title, hint, onSelectNew, onRemove }) {
       ))}
       <div className="mt-4">
         <Button onClick={onSelectNew} w="w-auto">
-          Add new css file
+          Add new
         </Button>
       </div>
     </Panel>
