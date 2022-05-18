@@ -94,7 +94,7 @@ remote.on('spectate', (spectate) => {
   specWindow.webContents.send('set-url', spectate);
 });
 
-server.listen(8080, () => {
+server.listen(8080, '0.0.0.0', () => {
   // log something somewhere
 });
 
