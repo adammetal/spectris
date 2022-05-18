@@ -3,6 +3,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const { app, BrowserWindow, ipcMain, screen, dialog } = require('electron');
 const path = require('path');
+const { remote, server } = require('./remote/spectator');
+const { spectateRemote } = require('./remote/controller');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -73,9 +75,10 @@ app.on('activate', () => {
   }
 });
 
-ipcMain.handle('set-url', (event, spectate = '') =>
-  specWindow.webContents.send('set-url', spectate),
-);
+ipcMain.handle('set-url', (event, spectate = '') => {
+  specWindow.webContents.send('set-url', spectate);
+  spectateRemote(spectate);
+});
 
 ipcMain.handle('open-spectator-window', () => {
   if (specWindow === null) {
@@ -86,6 +89,14 @@ ipcMain.handle('open-spectator-window', () => {
 ipcMain.handle('select-file', (event, type) =>
   dialog.showOpenDialog({ properties: ['openFile'], filters: [type] }),
 );
+
+remote.on('spectate', (spectate) => {
+  specWindow.webContents.send('set-url', spectate);
+});
+
+server.listen(8080, () => {
+  // log something somewhere
+});
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
