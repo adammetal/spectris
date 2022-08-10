@@ -13,7 +13,7 @@
     "prettier": "prettier -w src/",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:cov": "",
+    "test:cov": "vitest run --coverage",
     "prepare": "husky install"
   },
   "keywords": [],
@@ -84,6 +84,7 @@
     "autoprefixer": "^10.4.8",
     "babel-jest": "^28.1.3",
     "babel-loader": "^8.2.5",
+    "c8": "^7.12.0",
     "css-loader": "^6.7.1",
     "electron": "^19.0.11",
     "eslint": "^8.21.0",
