@@ -1,9 +1,11 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, beforeEach, test, expect, afterEach } from 'vitest';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import createStore from '../redux/createStore';
 import Controls from '../components/Controls';
 
 describe('Controls test', () => {
+  let result;
   let container;
   let store;
 
@@ -12,7 +14,7 @@ describe('Controls test', () => {
 
     store = createStore();
 
-    const result = render(
+    result = render(
       <Provider store={store}>
         <Controls />
       </Provider>,
@@ -21,14 +23,16 @@ describe('Controls test', () => {
     container = result.container;
   });
 
+  afterEach(cleanup);
+
   test('snapshot', () => {
     expect(container).toMatchSnapshot();
   });
 
   test('default state', () => {
-    const add = screen.getByText('Add');
-    const spectate = screen.getByText('Spectate');
-    const remove = screen.getByText('Remove');
+    const add = result.getByText('Add');
+    const spectate = result.getByText('Spectate');
+    const remove = result.getByText('Remove');
 
     expect(add).toBeDisabled();
     expect(spectate).toBeDisabled();
@@ -36,10 +40,10 @@ describe('Controls test', () => {
   });
 
   test('type url', () => {
-    const input = screen.getByPlaceholderText('Game url');
-    const add = screen.getByText('Add');
-    const spectate = screen.getByText('Spectate');
-    const remove = screen.getByText('Remove');
+    const input = result.getByPlaceholderText('Game url');
+    const add = result.getByText('Add');
+    const spectate = result.getByText('Spectate');
+    const remove = result.getByText('Remove');
 
     fireEvent.change(input, { target: { value: 'test' } });
 
@@ -49,14 +53,14 @@ describe('Controls test', () => {
   });
 
   test('Add url', async () => {
-    const input = screen.getByPlaceholderText('Game url');
-    const add = screen.getByText('Add');
+    const input = result.getByPlaceholderText('Game url');
+    const add = result.getByText('Add');
 
     fireEvent.change(input, { target: { value: 'test' } });
     fireEvent.click(add);
 
-    const update = await screen.findByText('Update');
-    const newUrl = await screen.findByDisplayValue('test');
+    const update = await result.findByText('Update');
+    const newUrl = await result.findByDisplayValue('test');
 
     expect(update).toBeDisabled();
     fireEvent.change(newUrl, { target: { value: 'updated' } });
@@ -68,16 +72,16 @@ describe('Controls test', () => {
   });
 
   test('Remove url', async () => {
-    const input = screen.getByPlaceholderText('Game url');
-    const add = screen.getByText('Add');
+    const input = result.getByPlaceholderText('Game url');
+    const add = result.getByText('Add');
 
     fireEvent.change(input, { target: { value: 'test' } });
     fireEvent.click(add);
 
-    const [remove] = await screen.findAllByText('Remove');
+    const [remove] = await result.findAllByText('Remove');
     fireEvent.click(remove);
 
-    const inputs = screen.getAllByPlaceholderText('Game url');
+    const inputs = result.getAllByPlaceholderText('Game url');
     expect(inputs).toHaveLength(1);
   });
 });
