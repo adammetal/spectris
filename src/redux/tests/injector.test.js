@@ -1,3 +1,4 @@
+import { describe, test, expect, beforeAll, beforeEach, it } from 'vitest';
 import createStore from '../createStore';
 import { addCss, addJs, removeCss, removeJs } from '../features/injector';
 
