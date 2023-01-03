@@ -43,7 +43,7 @@ exports[`Controls test > snapshot 1`] = `
         class="bg-blue-200 shadow-xl text-black border-4 border-pink-500 rounded-lg w-6/12"
       >
         <div
-          class="pl-2 bg-pink-400 text-white text-[1.5rem]"
+          class="pl-2 bg-pink-400 text-white text-[1.8rem]"
         >
           Extra Css styles
         </div>
@@ -71,7 +71,7 @@ exports[`Controls test > snapshot 1`] = `
         class="bg-blue-200 shadow-xl text-black border-4 border-pink-500 rounded-lg w-6/12"
       >
         <div
-          class="pl-2 bg-pink-400 text-white text-[1.5rem]"
+          class="pl-2 bg-pink-400 text-white text-[1.8rem]"
         >
           Extra JavaScript codes
         </div>
