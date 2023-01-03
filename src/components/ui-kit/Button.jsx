@@ -5,7 +5,7 @@ function Button({ children, w, p, className, ...rest }) {
   return (
     <button
       type="button"
-      className={`${className} text-lg border-2 rounded-md border-green-400 ${w} ${p} bg-green-400 text-white ${
+      className={`${className} text-lg border-2 rounded-md border-green-500 ${w} ${p} bg-green-400 text-white ${
         rest.disabled ? 'opacity-50' : 'hover:bg-blue-800'
       }`}
       {...rest}
